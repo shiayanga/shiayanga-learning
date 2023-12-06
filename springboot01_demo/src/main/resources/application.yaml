@@ -1,8 +1,23 @@
-person.id=1
-person.name=Tom
-person.hobby=eat,sleep,play
-person.family=father,mother
-person.map.K=V
-person.map.K2=V2
-person.pet.type=dog
-person.pet.name=wangcai
+# person.id=1
+# person.name=Tom
+# person.hobby=eat,sleep,play
+# person.family=father,mother
+# person.map.K=V
+# person.map.K2=V2
+# person.pet.type=dog
+# person.pet.name=wangcai
+person:
+  name: Lucy
+  hobby:
+    - eat
+    - sleep
+  id: 1
+  family:
+    - sister
+    - brother
+  pet:
+    type: dog
+    name: wangcai
+  map:
+    K: V
+    K2: V2
