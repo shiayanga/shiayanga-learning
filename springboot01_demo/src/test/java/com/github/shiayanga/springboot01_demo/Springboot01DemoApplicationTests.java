@@ -4,6 +4,7 @@ import com.github.shiayanga.custom.CustomProperties;
 import com.github.shiayanga.pojo.Person;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
@@ -37,5 +38,12 @@ class Springboot01DemoApplicationTests {
     @Test
     void referenceTest(){
         System.out.println(person);
+    }
+
+    @Value("${person.description}")
+    private String description;
+    @Test
+    void placeholderTest(){
+        System.out.println(description);
     }
 }
