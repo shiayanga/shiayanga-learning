@@ -21,6 +21,4 @@ person:
   map:
     K: V
     K2: V2
-
-random:
-
+  description: ${person.name} is a name

@@ -33,4 +33,9 @@ class Springboot01DemoApplicationTests {
     void customConfigTest(){
         System.out.println(applicationContext.containsBean("iCustomService"));
     }
+
+    @Test
+    void referenceTest(){
+        System.out.println(person);
+    }
 }

@@ -17,7 +17,7 @@ public class CustomProperties {
     private String name;
 
     private String secret;
-    private Long bignumber;
+    private Long bigNumber;
     private String uuid;
 
     @Override
@@ -26,7 +26,7 @@ public class CustomProperties {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", secret='" + secret + '\'' +
-                ", bignumber=" + bignumber +
+                ", bignumber=" + bigNumber +
                 ", uuid='" + uuid + '\'' +
                 '}';
     }
@@ -39,12 +39,12 @@ public class CustomProperties {
         this.secret = secret;
     }
 
-    public Long getBignumber() {
-        return bignumber;
+    public Long getBigNumber() {
+        return bigNumber;
     }
 
-    public void setBignumber(Long bignumber) {
-        this.bignumber = bignumber;
+    public void setBigNumber(Long bigNumber) {
+        this.bigNumber = bigNumber;
     }
 
     public String getUuid() {

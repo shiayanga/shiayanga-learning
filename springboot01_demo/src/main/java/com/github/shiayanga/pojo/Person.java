@@ -15,6 +15,7 @@ public class Person {
     private List hobby;
     private String[] family;
     private Map map;
+    private String description;
     private Pet pet;
 
     public int getId() {
@@ -57,6 +58,14 @@ public class Person {
         this.map = map;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Pet getPet() {
         return pet;
     }
@@ -73,6 +82,7 @@ public class Person {
                 ", hobby=" + hobby +
                 ", family=" + Arrays.toString(family) +
                 ", map=" + map +
+                ", description='" + description + '\'' +
                 ", pet=" + pet +
                 '}';
     }
