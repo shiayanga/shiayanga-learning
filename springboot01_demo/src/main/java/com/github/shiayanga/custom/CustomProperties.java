@@ -16,12 +16,43 @@ public class CustomProperties {
     private  int id;
     private String name;
 
+    private String secret;
+    private Long bignumber;
+    private String uuid;
+
     @Override
     public String toString() {
-        return "CustomProperties:{" +
+        return "CustomProperties{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", secret='" + secret + '\'' +
+                ", bignumber=" + bignumber +
+                ", uuid='" + uuid + '\'' +
                 '}';
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public Long getBignumber() {
+        return bignumber;
+    }
+
+    public void setBignumber(Long bignumber) {
+        this.bignumber = bignumber;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public int getId() {
