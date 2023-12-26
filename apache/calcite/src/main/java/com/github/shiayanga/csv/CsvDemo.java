@@ -30,7 +30,7 @@ public class CsvDemo {
         Connection connection = DriverManager.getConnection("jdbc:calcite:", properties);
         // 获取 Calcite 封装的连接
         CalciteConnection calciteConnection = connection.unwrap(CalciteConnection.class);
-
+        // 构建RootSchema，在Calcite中，RootSchema是所有数据源schema的parent，多个不同数据源schema可以挂在同一个RootSchema下，以实现查询不同数据源的目的
         SchemaPlus rootSchema = calciteConnection.getRootSchema();
         rootSchema.add("csv", csvSchema);
 
@@ -38,9 +38,10 @@ public class CsvDemo {
         Statement statement = calciteConnection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
 
-        while (resultSet.next()) {//光标向后移动，如果没有更多行，返回false
-            String screen_id = resultSet.getString("screen_id");//获取该行的第1列
-            String name = resultSet.getString("screen_name");//获取该行的第2列
+        //光标向后移动，如果没有更多行，返回false
+        while (resultSet.next()) {
+            String screen_id = resultSet.getString("screen_id");
+            String name = resultSet.getString("screen_name");
             String screen_config = resultSet.getString("screen_config");
             String screen_publish_url = resultSet.getString("screen_publish_url");
             String screen_publish_config = resultSet.getString("screen_publish_config");
