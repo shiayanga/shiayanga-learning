@@ -1,6 +1,9 @@
 # shiayanga-learning
-# 拉勾教育 Java工程师高薪训练营
-
-+ springboot
+## apache
++ Calcite 
+> Apache Calcite 是一个动态数据管理框架，提供了：SQL 解析、SQL 校验、SQL 查询优化、SQL 生成以及数据连接查询等典型数据库管理功能
+## Leetcode
++ 力扣
+## springboot
 <br>
 其他部分正在学习中
