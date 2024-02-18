@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Properties;
 
 public class CsvDemo {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws Exception {
         String filePath = Sources.of(CsvDemo.class.getResource("/")).file().getAbsolutePath();
 
         // 构建 CsvScheme 对象，在 Calcite 中，不同数据源对应不同 Scheme

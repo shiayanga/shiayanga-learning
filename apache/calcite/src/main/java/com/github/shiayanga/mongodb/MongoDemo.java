@@ -8,9 +8,11 @@ import com.mongodb.internal.connection.MongoCredentialWithCache;
 import org.apache.calcite.adapter.mongodb.MongoSchema;
 import org.apache.calcite.adapter.mongodb.MongoSchemaFactory;
 import org.apache.calcite.adapter.mongodb.MongoTable;
+import org.apache.calcite.config.Lex;
 import org.apache.calcite.jdbc.CalciteConnection;
 import org.apache.calcite.schema.Schema;
 import org.apache.calcite.schema.SchemaPlus;
+import org.apache.calcite.schema.Table;
 import org.apache.commons.lang3.StringUtils;
 
 import java.sql.Connection;
@@ -28,7 +30,7 @@ public class MongoDemo {
         Class.forName("com.mysql.jdbc.Driver");
 
         Properties properties = new Properties();
-        properties.setProperty("lex","JAVA");
+        properties.setProperty("lex", Lex.MYSQL.toString());
         properties.setProperty("remarks","true");
         properties.setProperty("parserFactory","org.apache.calcite.sql.parser.impl.SqlParserImpl#FACTORY");
         Connection connection = DriverManager.getConnection("jdbc:calcite:", properties);
@@ -38,25 +40,20 @@ public class MongoDemo {
 
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("host","192.168.0.255:27017");
-        map.put("database","qqq");
+        map.put("host","192.168.0.100:28017");
+        map.put("database","lotdb");
         map.put("SCRAM-SHA-1","SCRAM-SHA-1");
-        map.put("username","qqq");
-        map.put("authDatabase","qqq");
-        map.put("password","123453456");
+        map.put("username","lotdb");
+        map.put("authDatabase","lotdb");
+        map.put("password","Tg$vvhEj5vzQ");
         map.put("authMechanism","SCRAM-SHA-1");
 
-        Schema mongoSchema = new MongoSchemaFactory().create(rootSchema, "qqq", map);
-        rootSchema.add("qqq",mongoSchema);
-
+        Schema mongoSchema = new MongoSchemaFactory().create(rootSchema, "lotdb", map);
+        rootSchema.add("lotdb",mongoSchema);
+        Table schemaTable = mongoSchema.getTable("form_fill_2302231149381209018");
+        Schema.TableType jdbcTableType = schemaTable.getJdbcTableType();
         Statement statement = calciteConnection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select " +
-                "CAST(_MAP ['formFillId'] AS varchar (50)) AS formFillId," +
-                "CAST(_MAP ['formId'] AS varchar (50)) AS formId," +
-                "CAST(_MAP ['tenantId'] AS varchar (50)) AS tenantId," +
-                "CAST(_MAP ['submitSsoUserId'] AS varchar (50)) AS submitSsoUserId," +
-                "CAST(_MAP ['submitUserName'] AS varchar (50)) AS submitUserName " +
-                "from lotdb.form_fill_2302231149381209018");
+        ResultSet resultSet = statement.executeQuery("select * from lotdb.form_fill_2302231149381209018");
 
         while (resultSet.next()) {
 

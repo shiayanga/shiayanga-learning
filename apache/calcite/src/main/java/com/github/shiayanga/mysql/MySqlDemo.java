@@ -13,28 +13,28 @@ import java.sql.Statement;
 import java.util.Properties;
 
 public class MySqlDemo {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         // 驱动程序
         Class.forName("org.apache.calcite.jdbc.Driver");
         Class.forName("com.mysql.jdbc.Driver");
 
         Properties properties = new Properties();
-        properties.setProperty("lex","JAVA");
-        properties.setProperty("remarks","true");
-        properties.setProperty("parserFactory","org.apache.calcite.sql.parser.impl.SqlParserImpl#FACTORY");
+        properties.setProperty("lex", "JAVA");
+        properties.setProperty("remarks", "true");
+        properties.setProperty("parserFactory", "org.apache.calcite.sql.parser.impl.SqlParserImpl#FACTORY");
         Connection connection = DriverManager.getConnection("jdbc:calcite:", properties);
         CalciteConnection calciteConnection = connection.unwrap(CalciteConnection.class);
         SchemaPlus rootSchema = calciteConnection.getRootSchema();
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
-        mysqlDataSource.setUrl("jdbc:mysql://192.168.0.255:3306/lcdp");
-        mysqlDataSource.setUser("qqq");
-        mysqlDataSource.setPassword("cnvbncvbxcvb");
+        mysqlDataSource.setUrl("jdbc:mysql://192.168.0.110:3306/lcdp");
+        mysqlDataSource.setUser("lcdp");
+        mysqlDataSource.setPassword("eG6wGyTw!mnsCV");
 
-        JdbcSchema schema = JdbcSchema.create(rootSchema, "qqq", mysqlDataSource, null, "qq");
-        rootSchema.add("qq",schema);
+        JdbcSchema schema = JdbcSchema.create(rootSchema, "lcdp", mysqlDataSource, null, "lcdp");
+        rootSchema.add("lcdp", schema);
 
         Statement statement = calciteConnection.createStatement();
-        ResultSet resultSet = statement.executeQuery("select * from qqq.qq");
+        ResultSet resultSet = statement.executeQuery("select * from lcdp.lcdp_screens_screen");
         while (resultSet.next()) {
             String screen_id = resultSet.getString("screen_id");
             String name = resultSet.getString("screen_name");
@@ -44,12 +44,11 @@ public class MySqlDemo {
             String tenant_id = resultSet.getString("tenant_id");
             String create_user_id = resultSet.getString("create_user_id");
             String create_time = resultSet.getString("create_time");
-            if (StringUtils.isEmpty(screen_id)){
+            if (StringUtils.isEmpty(screen_id)) {
                 continue;
             }
             System.out.println(screen_id + "\t" + name + "\t" + screen_config + "\t" + screen_config + "\t" + screen_publish_url + "\t" +
                     screen_publish_config + "\t" + tenant_id + "\t" + create_user_id + "\t" + create_time);
-
         }
         statement.close();
         connection.close();
