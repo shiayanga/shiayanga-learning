@@ -7,7 +7,7 @@ import java.util.Collections;
 /**
  * <a href="https://leetcode.cn/problems/merge-sorted-array/">88. 合并两个有序数组</a>
  */
-public class EightyEight {
+public class MergeSortedArray {
     public static void main(String[] args) {
         int[] nums1 = new int[]{1, 2, 3, 0, 0, 0};
         int[] nums2 = new int[]{2, 5, 6};
