@@ -2,7 +2,6 @@ package com.github.shiayanga;
 
 import com.github.shiayanga.component.ListNode;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
