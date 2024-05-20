@@ -14,16 +14,14 @@ import java.net.URL;
 import java.util.Base64;
 
 /**
- *  _____ _     _
+ * _____ _     _
  * /  ___| |   (_)
  * \ `--.| |__  _  __ _ _   _  __ _ _ __   __ _  __ _
- *  `--. \ '_ \| |/ _` | | | |/ _` | '_ \ / _` |/ _` |
+ * `--. \ '_ \| |/ _` | | | |/ _` | '_ \ / _` |/ _` |
  * /\__/ / | | | | (_| | |_| | (_| | | | | (_| | (_| |
  * \____/|_| |_|_|\__,_|\__, |\__,_|_| |_|\__, |\__,_|
- *                       __/ |             __/ |
- *                      |___/             |___/
- *
- *
+ * __/ |             __/ |
+ * |___/             |___/
  */
 public class ImageUtil {
     private static final MatrixToImageConfig DEFAULT_CONFIG = new MatrixToImageConfig();
@@ -56,7 +54,6 @@ public class ImageUtil {
                 image.setRGB(x, y, matrix.get(x, y) ? onColor : offColor);
             }
         }
-        image.setRGB(200, 3, 10);
         return image;
     }
 
@@ -139,10 +136,47 @@ public class ImageUtil {
         // 再把源图像画上
         graphics.drawImage(source, x, y, logW, logH, observer);
         // 二维码描边
-        Shape shape = new RoundRectangle2D.Float(x, y, logW, logH, 300, 300);
+        Shape shape = new RoundRectangle2D.Float(x, y, logW, logH, 0, 0);
         // graphics.setStroke(new BasicStroke(1.5f));
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.draw(shape);
+        graphics.dispose();
+        return resultImage;
+    }
+
+
+    /**
+     * 叠加图片
+     *
+     * @param source    源图片
+     * @param target    目标图片
+     * @param roundLogo 是否为圆形Logo
+     * @return 叠加后的图片
+     */
+    public static BufferedImage overlayLogo(BufferedImage source, BufferedImage target, ImageObserver observer, Boolean roundLogo) {
+        if (!roundLogo) {
+            return overlayLogo(source, target, observer);
+        }
+        int width = target.getWidth(null);
+        int height = target.getHeight(null);
+        int logH = (int) (height * 0.2);
+        int logW = (int) (width * 0.2);
+        int x = (width - logW) / 2;
+        int y = (height - logH) / 2;
+        // 创建空白图片
+        BufferedImage resultImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D graphics = resultImage.createGraphics();
+        // 先把目标图像画上
+        graphics.drawImage(target, 0, 0, observer);
+        // 开启抗锯齿
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        // 再把源图像画上
+        graphics.drawImage(source, x, y, logW, logH, observer);
+        // 二维码描边
+        Shape shape = new RoundRectangle2D.Float(x, y, logW, logH, 300, 300);
+        // graphics.setStroke(new BasicStroke(1.5f));
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        // graphics.draw(shape);
         graphics.dispose();
         return resultImage;
     }

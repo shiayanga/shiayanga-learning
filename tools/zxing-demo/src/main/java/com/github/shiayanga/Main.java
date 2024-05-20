@@ -4,10 +4,13 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -31,16 +34,20 @@ public class Main {
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
+        ArrayList<BufferedImage> images = new ArrayList<>();
         System.out.println(start);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             System.out.print(i + " ");
+
             BufferedImage bufferedImage = generateQrCode();
+            images.add(bufferedImage);
             // ImageUtil.writeToFile(bufferedImage,QRCODE_FORMAT,"/Users/liyang/Projects/github/shiayanga-learning/qrCodeImages/"+ new Date().getTime() + "." + QRCODE_FORMAT);
         }
         System.out.println();
         long end = System.currentTimeMillis();
         System.out.println(end);
-        System.out.print(String.valueOf(end - start));
+
+        System.out.print(new BigDecimal(end-start).divide(new BigDecimal(1000)) + "秒");
     }
 
     public static BufferedImage generateQrCode() {
@@ -51,7 +58,7 @@ public class Main {
         // 指定边缘的宽度
         hints.put(EncodeHintType.MARGIN, 1);
         // 指定纠错级别。纠错级别越高，可以修正的错误就越多，但二维码的密度也越大。可选值包括L，M，Q和H，表示从7%到30%的纠错能力
-        hints.put(EncodeHintType.ERROR_CORRECTION, "H");
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
         try {
             BitMatrix matrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, QRCODE_WIDTH, QRCODE_HEIGHT, hints);
             MatrixToImageConfig matrixToImageConfig = new MatrixToImageConfig();
@@ -61,7 +68,7 @@ public class Main {
             // 加载logo
             // BufferedImage logo = ImageUtil.loadFromUrl(QRCODE_LOGO);
             BufferedImage roundness = ImageUtil.generateRoundness(new URL(QRCODE_LOGO));
-            return ImageUtil.overlayLogo(roundness, qrcode, null);
+            return ImageUtil.overlayLogo(roundness, qrcode, null,true);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
