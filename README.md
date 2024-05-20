@@ -5,5 +5,14 @@
 ## Leetcode
 + 力扣
 ## springboot
+
+## tools
++ zxing-demo
+
+[ZXing ("Zebra Crossing") barcode scanning library for Java, Android](https://github.com/zxing/zxing)
+
+
+
+<br>
 <br>
 其他部分正在学习中
