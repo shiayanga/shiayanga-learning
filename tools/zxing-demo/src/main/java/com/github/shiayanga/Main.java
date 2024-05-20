@@ -11,6 +11,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ *  _____ _     _
+ * /  ___| |   (_)
+ * \ `--.| |__  _  __ _ _   _  __ _ _ __   __ _  __ _
+ *  `--. \ '_ \| |/ _` | | | |/ _` | '_ \ / _` |/ _` |
+ * /\__/ / | | | | (_| | |_| | (_| | | | | (_| | (_| |
+ * \____/|_| |_|_|\__,_|\__, |\__,_|_| |_|\__, |\__,_|
+ *                       __/ |             __/ |
+ *                      |___/             |___/
+ *
+ */
 public class Main {
     private static final int QRCODE_WIDTH = 1600;
     private static final int QRCODE_HEIGHT = 1600;

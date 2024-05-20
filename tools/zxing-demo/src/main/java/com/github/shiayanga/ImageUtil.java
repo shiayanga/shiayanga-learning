@@ -13,7 +13,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Base64;
 
-
+/**
+ *  _____ _     _
+ * /  ___| |   (_)
+ * \ `--.| |__  _  __ _ _   _  __ _ _ __   __ _  __ _
+ *  `--. \ '_ \| |/ _` | | | |/ _` | '_ \ / _` |/ _` |
+ * /\__/ / | | | | (_| | |_| | (_| | | | | (_| | (_| |
+ * \____/|_| |_|_|\__,_|\__, |\__,_|_| |_|\__, |\__,_|
+ *                       __/ |             __/ |
+ *                      |___/             |___/
+ *
+ *
+ */
 public class ImageUtil {
     private static final MatrixToImageConfig DEFAULT_CONFIG = new MatrixToImageConfig();
 
