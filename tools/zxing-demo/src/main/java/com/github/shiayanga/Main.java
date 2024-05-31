@@ -1,11 +1,14 @@
 package com.github.shiayanga;
 
+import com.alibaba.fastjson2.JSON;
+import com.github.shiayanga.pojo.Label;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -32,15 +35,17 @@ public class Main {
     private static final String QRCODE_LOGO = "http://gips3.baidu.com/it/u=3886271102,3123389489&fm=3028&app=3028&f=JPEG&fmt=auto?w=1280&h=960";
     private static final String QRCODE_FORMAT = "png";
 
+    public static final String LABEL = "{\"background_color\":\"000000\",\"background_image\":\"https://img0.baidu.com/it/u=539050338,270456708&fm=253&fmt=auto&app=138&f=PNG?w=796&h=500\",\"label_width\":8560,\"label_height\":5398,\"label_text\":[{\"name\":\"建筑工程人员信息\",\"font_size\":12,\"font\":\"default\",\"x\":100,\"y\":50},{\"name\":\"姓名\",\"value\":\"张艳丽\",\"font_size\":12,\"font\":\"default\",\"x\":100,\"y\":200}],\"label_qrcode\":{\"size\":200,\"text\":\"https://blog.51cto.com/u_16175471/8666546\",\"x\":500,\"y\":300}}\n";
+
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
         ArrayList<BufferedImage> images = new ArrayList<>();
         System.out.println(start);
         for (int i = 0; i < 1; i++) {
             System.out.print(i + " ");
-
-            BufferedImage bufferedImage = generateQrCode();
-            images.add(bufferedImage);
+            generateLabel(LABEL);
+            /*BufferedImage bufferedImage = generateQrCode();
+            images.add(bufferedImage);*/
             // ImageUtil.writeToFile(bufferedImage,QRCODE_FORMAT,"/Users/liyang/Projects/github/shiayanga-learning/qrCodeImages/"+ new Date().getTime() + "." + QRCODE_FORMAT);
         }
         System.out.println();
@@ -74,4 +79,14 @@ public class Main {
             throw new RuntimeException(e);
         }
     }
+
+    public static Image generateLabel(String l){
+        Label label = JSON.parseObject(l, Label.class);
+        String backgroundColor = label.getBackgroundColor();
+        int bgColor = Color.decode(backgroundColor).getRGB();
+
+return null;
+    }
+
+
 }
