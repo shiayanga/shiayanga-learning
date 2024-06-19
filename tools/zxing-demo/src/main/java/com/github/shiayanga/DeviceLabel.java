@@ -1,6 +1,7 @@
 package com.github.shiayanga;
 
 import com.freewayso.image.combiner.ImageCombiner;
+import com.freewayso.image.combiner.enums.Direction;
 import com.freewayso.image.combiner.enums.OutputFormat;
 import com.freewayso.image.combiner.enums.ZoomMode;
 import com.google.zxing.BarcodeFormat;
@@ -22,7 +23,7 @@ public class DeviceLabel {
 
     public static void main(String[] args) throws Exception {
         //合成器和背景图（整个图片的宽高和相关计算依赖于背景图，所以背景图的大小是个基准）
-        ImageCombiner combiner = new ImageCombiner(400, 600, Color.RED, OutputFormat.JPG);
+        ImageCombiner combiner = new ImageCombiner(400, 600, Color.BLUE, OutputFormat.JPG);
 
         //加入圆形元素-头部留白
         BufferedImage circle = new BufferedImage(800, 800, BufferedImage.TYPE_INT_ARGB);
@@ -34,10 +35,10 @@ public class DeviceLabel {
 
         // 顶部logo
         BufferedImage topLogo = ImageUtil.loadFromUrl("https://mhimg.clewm.net/cli/images/beautify/new/logo/06%E4%B8%AD%E5%9B%BD%E4%B8%AD%E8%BD%A6_500.png");
-        combiner.addImageElement(topLogo, 0, 5,80,80,ZoomMode.WidthHeight).setCenter(true);
+        combiner.addImageElement(topLogo, 0, 5,80,80,ZoomMode.WidthHeight).setCenter(true).setAlpha(.1f);
 
         // 标题
-        combiner.addTextElement("设备巡检系统","FZLTZHK--GBK1-0",35,0,100).setCenter(true)
+        combiner.addTextElement("设备巡检系统","FZLTZHK--GBK1-0",35,0,100).setCenter(true).setDirection(Direction.RightLeft)
                 .setColor(Color.RED);
 
         //加入矩形元素（圆角）-二维码位置
@@ -50,13 +51,9 @@ public class DeviceLabel {
                 .setColor(Color.WHITE)
                 .setRoundCorner(50);
 
-        combiner.addTextElement("设备名称：主通风机","FZLTZHK--GBK1-0",30,0,combiner.getCanvasHeight()-90).setColor(Color.WHITE).setCenter(true);
-        combiner.addTextElement("设备型号：TF-01HT","FZLTZHK--GBK1-0",30,0,combiner.getCanvasHeight()-50).setColor(Color.WHITE).setCenter(true);
-
-
-
-
-
+        combiner.addTextElement("①设备名称：主通风机\n②设备型号：TF-01HT","FZLTZHK--GBK1-0",30,0,combiner.getCanvasHeight()-90)
+                .setColor(Color.WHITE).setDirection(Direction.LeftRight).setAutoBreakLine("\n");
+        // combiner.addTextElement("设备型号：TF-01HT","FZLTZHK--GBK1-0",30,0,combiner.getCanvasHeight()-50).setColor(Color.WHITE).setCenter(true);
         // 二维码
         BufferedImage bufferedImage = generateQrCode(combiner.getCanvasWidth()/3*2-20);
         combiner.addImageElement(bufferedImage,0,

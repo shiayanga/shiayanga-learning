@@ -12,6 +12,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Base64;
+import java.util.Date;
 
 /**
  * _____ _     _
@@ -254,6 +255,44 @@ public class ImageUtil {
     }
 
     /**
+     * 从文字生成图片
+     *
+     * @param text      文字
+     * @param font      字体
+     * @param textColor 字体颜色
+     * @param observer
+     * @return 生成的图片
+     */
+    public static BufferedImage textToPicture(String text, Font font, Color textColor, ImageObserver observer,String spliter) {
+        // 创建一个临时的Graphics2D对象，以便在BufferedImage上绘制文本
+        BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = img.createGraphics();
+        // 设置字体
+        g2d.setFont(font);
+        // 获取文本的宽度和高度
+        FontMetrics fm = g2d.getFontMetrics();
+        String[] split = text.split(spliter);
+        int width = fm.stringWidth(text);
+        int height = fm.getHeight();
+        // 释放Graphics2D对象
+        g2d.dispose();
+        // 创建一个新的BufferedImage对象
+        img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        g2d = img.createGraphics();
+
+        // 开启抗锯齿
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        // 设置字体和颜色
+        g2d.setFont(font);
+        g2d.setColor(textColor);
+        // 将文本绘制到BufferedImage上
+        g2d.drawString(text, 0, fm.getAscent());
+        // 释放Graphics2D对象
+        g2d.dispose();
+        return img;
+    }
+
+    /**
      * 从文字生成 图片
      *
      * @param text      文字
@@ -380,5 +419,11 @@ public class ImageUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    private static final String QRCODE_FORMAT = "png";
+
+    public static void main(String[] args) {
+        BufferedImage bufferedImage = ImageUtil.textToPicture("aaa\nbbb", null, Color.BLACK, null);
+        ImageUtil.writeToFile(bufferedImage,QRCODE_FORMAT,"/Users/liyang/Projects/github/shiayanga-learning/qrCodeImages/" + new Date().getTime() + "." + QRCODE_FORMAT);
     }
 }
