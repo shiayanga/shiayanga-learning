@@ -13,19 +13,20 @@ public class WeightedRandom {
         ArrayList<WeightedRandomPojo> weightedRandomPojos = new ArrayList<>();
         WeightedRandomPojo weightedRandomPojo1 = new WeightedRandomPojo("1", 1d);
         WeightedRandomPojo weightedRandomPojo2 = new WeightedRandomPojo("2", 2d);
-        WeightedRandomPojo weightedRandomPojo3 = new WeightedRandomPojo("5", 5d);
-        WeightedRandomPojo weightedRandomPojo4 = new WeightedRandomPojo("10", 10d);
+        WeightedRandomPojo weightedRandomPojo3 = new WeightedRandomPojo("3", 5d);
+        WeightedRandomPojo weightedRandomPojo4 = new WeightedRandomPojo("4", 10d);
         weightedRandomPojos.add(weightedRandomPojo1);
         weightedRandomPojos.add(weightedRandomPojo2);
         weightedRandomPojos.add(weightedRandomPojo3);
         weightedRandomPojos.add(weightedRandomPojo4);
-//        WeightedRandom weightedRandom = new WeightedRandom();
-//        if (weightedRandom.weightMap.isEmpty()) {
-//            weightedRandom.setMap(weightedRandomPojos);
-//        }
+        WeightedRandom weightedRandom = new WeightedRandom();
+        if (weightedRandom.weightMap.isEmpty()) {
+            weightedRandom.setMap(weightedRandomPojos);
+        }
         Map<String, Integer> count = new HashMap<>();
-        for (int i = 0; i < 10000; i++) {
-            String text = getText(weightedRandomPojos);
+        long currentTimeMillis = System.currentTimeMillis();
+        for (int i = 0; i < 100; i++) {
+            String text = weightedRandom.getText();
             if (count.get(text) != null) {
                 Integer num = count.get(text);
                 count.put(text, num + 1);
@@ -33,12 +34,14 @@ public class WeightedRandom {
             }
             count.put(text, 1);
         }
-        BigDecimal totalTimes = new BigDecimal(10000);
+        long timeMillis = System.currentTimeMillis();
+        System.out.println("耗时：" + (timeMillis - currentTimeMillis)+" 毫秒");
+        BigDecimal totalTimes = new BigDecimal(100);
         for (String s : count.keySet()) {
             Integer nums = count.get(s);
             BigDecimal bigDecimal = new BigDecimal(nums);
             BigDecimal decimal = bigDecimal.divide(totalTimes, 20, RoundingMode.HALF_UP);
-            System.out.println(s + "\t命中\t" + count.get(s) + "次\t占比\t" + decimal.doubleValue() * 100 + "%");
+            System.out.println("内容\t"+s + "\t命中\t" + count.get(s) + "次\t占比\t" + decimal.doubleValue() * 100 + "%");
         }
     }
 
